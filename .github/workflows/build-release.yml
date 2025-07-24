@@ -1,1 +1,56 @@
+name: Update version, commit and build ZIP on Release
 
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write 
+
+jobs:
+  update-version-commit-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update plugin version in PHP file
+        run: |
+          RAW_VERSION=${{ github.event.release.tag_name }}
+          VERSION=$(echo "$RAW_VERSION" | sed 's/[^0-9.]//g')
+
+          sed -i "s/^Version: .*/Version: $VERSION/" wemake-webhook.php
+          sed -i "s/define(\"WMHK_PLUGIN_VERSION\", '.*');/define(\"WMHK_PLUGIN_VERSION\", '$VERSION');/" wemake-webhook.php
+
+      - name: Commit and push changes if any
+        run: |
+          if [[ $(git status --porcelain) ]]; then
+            git add wemake-webhook.php
+            git commit -m "Update plugin version to $VERSION [skip ci]"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Create plugin zip with version in filename
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          mkdir wemake-webhook
+          cp -r assets inc languages lib wemake-webhook.php wemake-webhook/
+          zip -r wemake-webhook-$VERSION.zip wemake-webhook/
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2  
+        with:
+          tag_name: ${{ github.event.release.tag_name }}  
+          files: wemake-webhook-${{ github.event.release.tag_name }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
