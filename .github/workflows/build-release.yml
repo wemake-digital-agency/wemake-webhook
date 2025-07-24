@@ -44,7 +44,7 @@ jobs:
         run: |
           VERSION=${{ github.event.release.tag_name }}
           mkdir wemake-webhook
-          cp -r assets inc languages lib wemake-webhook.php wemake-webhook/
+          cp -r assets inc languages wemake-webhook.php wemake-webhook/
           zip -r wemake-webhook-$VERSION.zip wemake-webhook/
 
       - name: Upload release asset
