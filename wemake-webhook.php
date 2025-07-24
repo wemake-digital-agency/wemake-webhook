@@ -4,7 +4,7 @@
 Plugin Name: Wemake Webhook
 Plugin URI: https://www.wemake.co.il/
 Description: Contact form 7 webhook
-Version: 1.1.1
+Version: 1.1.2
 Author: Wemake Team
 Author URI: https://www.wemake.co.il
 License: GPL-2.0+
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define("WMHK_PLUGIN_NAME", 'Wemake Webhook');
 define("WMHK_PLUGIN_SLUG", 'wemake-webhook');
-define("WMHK_PLUGIN_VERSION", '1.1.1');
+define("WMHK_PLUGIN_VERSION", '1.1.2');
 define("WMHK_ABSPATH", dirname( __FILE__ ));
 define("WMHK_URI", plugins_url().'/'.WMHK_PLUGIN_SLUG);
 define('WMHK_HTTP_HOST', get_site_url());
