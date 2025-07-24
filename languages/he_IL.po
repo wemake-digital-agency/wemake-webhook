@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-13 12:02GMT 2\n"
+"PO-Revision-Date: 2020-03-18 12:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: Wemake\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Eazy Po 0.9.5.3\n"
+": \n"
+
+# ---------------------------------------------------------------
+
+# /inc/admin.php
+msgid "Save settings"
+msgstr "שמור"
+
+# /inc/admin.php
+msgid "You have unsaved changes"
+msgstr "יש לך שינויים שלא נשמרו"
+
+# /inc/admin.php
+msgid "Request error!"
+msgstr "שגיאה!"
+
+# /inc/admin.php
+msgid "Settings successfully changed"
+msgstr "ההגדרות השתנו בהצלחה"
+
+# /inc/admin.php
+msgid "Settings"
+msgstr "הגדרות"
+

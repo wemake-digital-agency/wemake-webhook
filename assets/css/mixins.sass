@@ -1,0 +1,313 @@
+=placeholder-color($c)
+  &::-webkit-input-placeholder
+    color: $c
+  &:-moz-placeholder
+    color: $c
+  &::-moz-placeholder
+    color: $c
+  &:-ms-input-placeholder
+    color: $c
+	
+=disable-select-appearance()
+  -moz-appearance: none
+  -webkit-appearance: none
+  &::-ms-expand
+    display: none
+	
+=disable-input-appearance()
+  &::-webkit-inner-spin-button,&::-webkit-outer-spin-button
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+
+=after-clear()
+  &::after
+    content: ""
+    display: block
+    clear: both
+
+=transition($s)
+  transition: all $s ease-in-out
+  -webkit-transition: all $s ease-in-out
+  -moz-transition: all $s ease-in-out
+  -ms-transition: all $s ease-in-out
+  -o-transition: all $s ease-in-out
+
+=transition-custom($s)
+  transition: #{$s}
+  -webkit-transition: #{$s}
+  -moz-transition: #{$s}
+  -ms-transition: #{$s}
+  -o-transition: #{$s}
+  
+=transition-delay($p)
+  -webkit-transition-delay: $p
+  -moz-transition-delay: $p
+  -ms-transition-delay: $p
+  -o-transition-delay: $p
+  transition-delay: $p
+
+=translate-x($p)
+  transform: translateX($p)
+  -webkit-transform: translateX($p)
+  -ms-transform: translateX($p)
+
+=translate-y($p)
+  transform: translateY($p)
+  -webkit-transform: translateY($p)
+  -ms-transform: translateY($p)
+
+=rotate($d)
+  -ms-transform: rotate($d)
+  -webkit-transform: rotate($d)
+  transform: rotate($d)
+
+=transform($p)
+  -ms-transform: #{$p}
+  -webkit-transform: #{$p}
+  transform: #{$p}
+
+=box-shadow($a)
+  -moz-box-shadow: $a
+  -webkit-box-shadow: $a
+  box-shadow: $a
+  
+=filter($p)
+  -webkit-filter: $p
+  -moz-filter: $p
+  -o-filter: $p
+  -ms-filter: $p
+  filter: $p
+
+=backdrop-filter($p)
+  backdrop-filter: $p
+  -webkit-backdrop-filter: $p
+
+=border-radius($r)
+  -moz-border-radius: $r
+  -webkit-border-radius: $r
+  -khtml-border-radius: $r
+  border-radius: $r
+
+=border-top-right-radius($r)
+  -moz-border-top-right-radius: $r
+  -webkit-border-top-right-radius: $r
+  -khtml-border-top-right-radius: $r
+  border-top-right-radius: $r
+
+=border-top-left-radius($r)
+  -moz-border-top-left-radius: $r
+  -webkit-border-top-left-radius: $r
+  -khtml-border-top-left-radius: $r
+  border-top-left-radius: $r
+
+=border-bottom-right-radius($r)
+  -moz-border-bottom-right-radius: $r
+  -webkit-border-bottom-right-radius: $r
+  -khtml-border-bottom-right-radius: $r
+  border-bottom-right-radius: $r
+
+=border-bottom-left-radius($r)
+  -moz-border-bottom-left-radius: $r
+  -webkit-border-bottom-left-radius: $r
+  -khtml-border-bottom-left-radius: $r
+  border-bottom-left-radius: $r
+
+=opacity($o1, $o2)
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=#{$o2})
+  -moz-opacity: $o1
+  -khtml-opacity: $o1
+  opacity: $o1
+
+=background-size($s)
+  -ms-background-size: $s
+  -o-background-size: $s
+  -moz-background-size: $s
+  -webkit-background-size: $s
+  background-size: $s
+
+=flip-horizontal()
+  -moz-transform: scale(-1, 1)
+  -webkit-transform: scale(-1, 1)
+  -o-transform: scale(-1, 1)
+  transform: scale(-1, 1)
+  filter: FlipH
+  -ms-filter: "FlipH"
+
+=flip-vertical
+  -moz-transform: scale(1,-1)
+  -webkit-transform: scale(1, -1)
+  -o-transform: scale(1, -1)
+  transform: scale(1, -1)
+  filter: FlipV
+  -ms-filter: "FlipV"
+
+=zoom($s)
+  transform: scale($s)
+  -moz-transform: scale($s)
+  -webkit-transform: scale($s)
+  -o-transform: scale($s)
+  -ms-transform: scale($s)
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=$s, M12=0, M21=0, M22=$s, SizingMethod='auto expand')"
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=#{$s}, M12=0, M21=0, M22=#{$s}, SizingMethod='auto expand')
+
+=grayscale($p)
+  filter: none
+  -webkit-filter: grayscale($p)
+  -moz-filter: grayscale($p)
+  -ms-filter: grayscale($p)
+  -o-filter: grayscale($p)
+
+=blur($p)
+  -moz-filter: blur($p)
+  -webkit-filter: blur($p)
+  -o-filter: blur($p)
+  -ms-filter: blur($p)
+  filter: blur($p)
+  
+=background-gradient($p)
+  background: -moz-linear-gradient(#{$p})
+  background: -webkit-linear-gradient(#{$p})
+  background: linear-gradient(#{$p})
+
+=image-rendering-ce()
+  image-rendering: crisp-edges
+  image-rendering: -webkit-optimize-contrast
+  image-rendering: -o-crisp-edges
+  image-rendering: -moz-crisp-edges
+
+=mobile-tap-disable()
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-tap-highlight-color: transparent
+
+=vw-width($mw, $p)
+  width: ($p / $mw * 100)+vw
+  
+=vw-height($mw, $p)
+  height: ($p / $mw * 100)+vw
+  
+=absolute-center($w, $h)
+  top: 50%
+  right: 50%
+  width: $w+px
+  height: $h+px
+  margin: (-$h / 2)+px (-$w / 2)+px 0 0
+
+=animation($q)
+  -webkit-animation: #{$q}
+  animation: #{$q}
+  
+=animation-delay($p)
+  -webkit-animation-delay: $p
+  -moz-animation-delay: $p
+  -o-animation-delay: $p
+  animation-delay: $p
+
+=animation-name($p)
+  -webkit-animation-name: $p
+  -moz-animation-name: $p
+  -o-animation-name: $p
+  animation-name: $p
+
+=animation-duration($p)
+  -webkit-animation-duration: $p
+  -moz-animation-duration: $p
+  -o-animation-duration: $p
+  animation-duration: $p
+  
+=animation-timing-function($p)
+  -webkit-animation-timing-function: $p
+  -moz-animation-timing-function: $p
+  -o-animation-timing-function: $p
+  animation-timing-function: $p
+
+=animation-count($p)
+  -webkit-animation-iteration-count: $p
+  -moz-animation-iteration-count: $p
+  -o-animation-iteration-count: $p
+  animation-iteration-count: $p
+  
+=transition-timing-function($f)
+  -webkit-transition-timing-function: $f
+  -moz-transition-timing-function: $f
+  -ms-transition-timing-function: $f
+  -o-transition-timing-function: $f
+  transition-timing-function: $f
+
+=object-fit($s)
+  object-fit: $s
+  -o-object-fit: $s
+
+=object-position($s)
+  object-position: $s
+  -o-object-position: $s
+
+=img-wh-full()
+  width: 100%
+  height: 100%
+  +object-fit(cover)
+  +object-position(center)
+  
+=box-sizing($p)
+  box-sizing: $p
+  -webkit-box-sizing: $p
+  -moz-box-sizing: $p
+
+=user-select($p)
+  -webkit-user-select: $p
+  -moz-user-select: $p
+  -ms-user-select: $p
+  user-select: $p
+  
+=flex()
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flexbox
+  display: -webkit-box
+  display: flex
+
+=inline-flex()
+  display: -webkit-inline-flex
+  display: -moz-inline-box
+  display: -ms-inline-flexbox
+  display: -webkit-inline-flex
+  display: inline-flex
+  
+=flex-direction($d)
+  -webkit-flex-direction: $d
+  -moz-flex-direction: $d
+  -ms-flex-direction: $d
+  flex-direction: $d
+
+=flex-justify-content($p1, $p2)
+  -webkit-box-pack: $p1
+  -webkit-justify-content: $p2
+  -ms-flex-pack: $p1
+  justify-content: $p2
+
+=flex-wrap($p)
+  -webkit-flex-wrap: $p
+  -ms-flex-wrap: $p
+  flex-wrap: $p
+
+=flex-align-items($p)
+  -webkit-box-align: $p
+  -webkit-align-items: $p
+  -ms-flex-align: $p
+  align-items: $p
+
+=flex-align-content($p)
+  -webkit-align-content: $p
+  -ms-flex-line-pack: $p
+  align-content: $p
+  
+=flex-grow($p)
+  -webkit-box-flex: $p
+  -webkit-flex-grow: $p
+  -ms-flex-positive: $p
+  flex-grow: $p
+
+=flex-shrink($p)
+  -webkit-flex-shrink: $p
+  -ms-flex-negative: $p
+  flex-shrink: $p

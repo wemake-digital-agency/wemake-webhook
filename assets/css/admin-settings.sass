@@ -1,0 +1,168 @@
+@import mixins
+@import flex
+
+.wmhk-page
+  padding: 20px 0 0 20px
+  .wp-heading-inline
+    margin-bottom: 30px
+  &,*
+    text-align: left
+    direction: ltr
+
+.wmhk-form
+  position: relative
+  margin-top: 30px
+  max-width: 400px
+  color: #000
+  &:not(.-advanced) .wmhk-advanced-fields,
+  &.-advanced .wmhk-basic-fields
+    display: none
+  &,*
+    outline: none
+    &,&:before,&:after
+      box-sizing: border-box
+  &.wmhk-loading
+    &:before
+      content: ""
+      display: block
+      position: absolute
+      z-index: 1
+      top: 0
+      bottom: 0
+      right: 0
+      left: 0
+    .wmhk-submit
+      padding-left: 15px
+      background: #7d7d7d
+      &:before
+        content: ""
+        display: block
+        border: 1px solid #909090
+        border-left: 1px solid #ffffff
+        border-radius: 50%
+        width: 16px
+        height: 16px
+        margin-right: 10px
+        position: relative
+        top: 2px
+        transform: translateZ(0)
+        animation: wmhk-spiner-animation 1.1s infinite linear
+    .wmhk-field input:not([type="submit"]):not([type="checkbox"]):not([type="file"])
+      background-color: #f5f5f5
+
+.wmhk-result
+  padding: 10px
+  border: 1px solid #00adff
+  color: #00adff
+  margin-bottom: 30px
+  display: none
+  &.wmhk-show
+    display: block
+  &.wmhk-error
+    border: 1px solid #ff8c6a
+    color: #e00303
+
+.wmhk-field
+  position: relative
+  margin-bottom: 30px
+  input:not([type="submit"]):not([type="checkbox"]):not([type="file"])
+    width: 100%
+    height: 45px
+    box-shadow: none
+    font-size: 16px
+    border: 1px solid #E5E5E5
+    padding: 0 15px
+    outline: none
+    direction: ltr
+    text-align: left
+    transition: all 0.3s linear
+    border-radius: 3px
+    &:focus
+      border-color: #20ABF5
+
+.wmhk-label
+  position: relative
+  font-size: 16px
+  margin-bottom: 10px
+  padding-right: 25px
+  display: inline-block
+
+.wmhk-advanced-mode
+  margin-bottom: 40px
+  p
+    margin: 0 0 20px
+
+.wmhk-cfr-title
+  color: #00adff
+
+.wmhk-toggle
+  min-width: 80px
+  cursor: pointer
+  position: relative
+  display: inline-block
+  background: #e6e6e6
+  border-radius: 5px
+  +user-select(none)
+  &.checked
+    .wmhk-toggle-label
+      padding-left: 15px
+      padding-right: 40px
+    &:before
+      background: #fff
+      left: 100%
+      margin-left: -28px
+  &:before
+    content: ""
+    display: block
+    position: absolute
+    top: 5px
+    left: 5px
+    width: 22px
+    height: 22px
+    background: #ececec
+    transition: all 0.1s linear
+    border-radius: 50%
+    box-shadow: inset 1px 1px 5px rgba(0,0,0,0.2)
+  .wmhk-toggle-label,&:before
+    transition: all 0.3s linear
+  .wmhk-toggle-label
+    position: relative
+    z-index: 1
+    text-transform: uppercase
+    text-align: center
+    height: 32px
+    padding: 0 15px 0 40px
+    margin: 0
+    cursor: pointer
+    letter-spacing: 1px
+    font-size: 12px
+    box-sizing: border-box
+    display: inline-flex
+    align-items: center
+  input[type="checkbox"]
+    display: none
+
+.wmhk-submit
+  cursor: pointer
+  width: 100%
+  height: 45px
+  padding: 0 20px 3px
+  border: none
+  background: #0caaf7
+  color: #fff
+  font-weight: 600
+  font-size: 16px
+  box-shadow: none
+  transition: background-color 0.3s linear
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 3px
+  &:hover
+    background: darken(#0caaf7, 10%)
+
+@keyframes wmhk-spiner-animation
+  0%
+    +rotate(0deg)
+  100%
+    +rotate(360deg)
