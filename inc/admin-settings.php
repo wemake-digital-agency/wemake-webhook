@@ -138,3 +138,6 @@ add_filter('plugin_action_links_wemake-webhook/wemake-webhook.php', function($li
     $links = array_merge($settings_link, $links);
     return $links;
 });
+
+
+require_once(WMHK_ABSPATH . '/inc/admin_update_plugin_github.php');

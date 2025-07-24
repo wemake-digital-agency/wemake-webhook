@@ -67,4 +67,8 @@ function wmhk_get_contact_forms(){
 
 }
 
+function wmhk_get_plugin_row_path(){
+    return WMHK_PLUGIN_SLUG.'/'.WMHK_PLUGIN_SLUG.'.php';
+}
+
 ?>
