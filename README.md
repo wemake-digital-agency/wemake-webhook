@@ -37,7 +37,7 @@ Older copies:
 | Installed version | How it gets the latest release |
 |---|---|
 | 1.2 | Its own GitHub updater (`inc/admin_update_plugin_github.php`, removed in 1.3) reads `releases/latest` and offers the first `.zip` asset in wp-admin; the admin clicks "Update now" (or WordPress auto-updates it). |
-| 1.06 and older | No updater: install 1.3+ by hand once. |
+| 1.06 and older | No updater: install 1.3+ by hand once. Done on www.wemake.co.il and qa.wemake.co.il (2026-11-26); left: Genius and Ecovacs landings, lftech.co.il, laifentech.co.il. |
 
 Never edit plugin files directly on a site: the next update overwrites them. Fix it here and release.
 
