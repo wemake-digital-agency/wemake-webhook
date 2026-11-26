@@ -4,11 +4,12 @@
 Plugin Name: Wemake Webhook
 Plugin URI: https://www.wemake.co.il/
 Description: Contact form 7 webhook
-Version: 1.2
+Version: 1.3
 Author: Wemake Team
 Author URI: https://www.wemake.co.il
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+Update URI: https://repository.wemake.co.il/wemake-webhook
 Text Domain: wemake-webhook
 
 This program is free software; you can redistribute it and/or modify
@@ -29,7 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define("WMHK_PLUGIN_NAME", 'Wemake Webhook');
 define("WMHK_PLUGIN_SLUG", 'wemake-webhook');
-define("WMHK_PLUGIN_VERSION", '1.2');
+define("WMHK_PLUGIN_VERSION", '1.3');
 define("WMHK_ABSPATH", dirname( __FILE__ ));
 define("WMHK_URI", plugins_url().'/'.WMHK_PLUGIN_SLUG);
 define('WMHK_HTTP_HOST', get_site_url());
@@ -51,6 +52,11 @@ if(isset($_GET['action']) && (function_exists('wp_doing_ajax') &&  wp_doing_ajax
 }
 
 require_once(WMHK_ABSPATH . '/inc/functions.php');
+
+// Updates through the Wemake update server (repository.wemake.co.il)
+require_once(WMHK_ABSPATH . '/inc/class-wemake-update-client.php');
+new Wemake_Update_Client_1_0(__FILE__, WMHK_PLUGIN_SLUG, WMHK_PLUGIN_VERSION);
+
 require_once(WMHK_ABSPATH . '/inc/webhook.php');
 
 add_action("wp_loaded", function(){

@@ -1,0 +1,76 @@
+# Builds the plugin zip and publishes it on the GitHub release when a version tag (v1.4) is pushed.
+#
+# The release must never be public without wemake-webhook.zip: copies 1.2 update straight from the
+# latest GitHub release and, when it has no zip, fall back to GitHub's source archive (wrong folder name, the plugin
+# would end up deactivated). So the release is created as a draft, the zip is attached, and only then it is published.
+# Release by pushing a tag. A release created in the GitHub web UI is public before the zip is added.
+#
+# The Wemake update server (repository.wemake.co.il) reads the latest release and offers it to sites.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Check that the tag matches the plugin version
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME#v}"
+          if ! [[ "$TAG" =~ ^[0-9]{1,4}(\.[0-9]{1,4}){1,3}$ ]]; then
+            echo "Tag must look like v1.4, got: $GITHUB_REF_NAME"; exit 1
+          fi
+          HEADER=$(grep -m1 -E '^[[:space:]]*(\*[[:space:]]*)?Version:' wemake-webhook.php | sed -E 's/.*Version:[[:space:]]*//' | tr -d '[:space:]')
+          CONST=$(grep -m1 -E 'define\("WMHK_PLUGIN_VERSION"' wemake-webhook.php | sed -E "s/.*\"WMHK_PLUGIN_VERSION\",[[:space:]]*'([^']+)'.*/\1/" | tr -d '[:space:]')
+          if [ "$HEADER" != "$TAG" ] || [ "$CONST" != "$TAG" ]; then
+            echo "Version mismatch: tag $TAG, Version header $HEADER, WMHK_PLUGIN_VERSION $CONST. Bump both in wemake-webhook.php first."; exit 1
+          fi
+
+      - name: Lint PHP
+        run: |
+          set -euo pipefail
+          find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
+
+      - name: Build zip
+        run: |
+          set -euo pipefail
+          mkdir -p build/wemake-webhook
+          # Plugin files only: README, docs/ and CLAUDE.md never go to sites
+          cp -r assets inc languages index.php wemake-webhook.php build/wemake-webhook/
+          (cd build && zip -rqX ../wemake-webhook.zip wemake-webhook)
+          unzip -l wemake-webhook.zip | grep -q ' wemake-webhook/wemake-webhook.php$'
+          unzip -l wemake-webhook.zip | grep -q ' wemake-webhook/inc/class-wemake-update-client.php$'
+          unzip -l wemake-webhook.zip | tail -3
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            # Created in the web UI: attach the zip as soon as possible
+            gh release upload "$GITHUB_REF_NAME" wemake-webhook.zip --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" wemake-webhook.zip \
+              --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag --draft
+            gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+          fi
+          gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' | grep -qx 'wemake-webhook.zip'
